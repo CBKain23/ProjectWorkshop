@@ -1,7 +1,115 @@
 [gd_scene format=3 uid="uid://dww6vvb3jcifq"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1828563036]
+[ext_resource type="Texture2D" uid="uid://dv3x60v7xil75" path="res://game_assets/player_character/p1_stand.png" id="1_dnjla"]
+[ext_resource type="Script" uid="uid://b551ubhwbsw2r" path="res://script/character/player.gd" id="1_h076o"]
+[ext_resource type="Texture2D" uid="uid://borqld6gastvr" path="res://game_assets/player_character/p1_duck.png" id="1_tory2"]
+[ext_resource type="Texture2D" uid="uid://g7ctugnnogc1" path="res://game_assets/player_character/p1_jump.png" id="3_x0jl3"]
+[ext_resource type="Texture2D" uid="uid://biwo67kai6vj8" path="res://game_assets/player_character/player_walk/p1_walk01.png" id="4_eus45"]
+[ext_resource type="Texture2D" uid="uid://ci2dwrurljvcd" path="res://game_assets/player_character/player_walk/p1_walk02.png" id="5_vcag3"]
+[ext_resource type="Texture2D" uid="uid://b6jdal87jcgm3" path="res://game_assets/player_character/player_walk/p1_walk03.png" id="6_h076o"]
+[ext_resource type="Texture2D" uid="uid://ce6dry2sncvy8" path="res://game_assets/player_character/player_walk/p1_walk04.png" id="7_lcfw7"]
+[ext_resource type="Texture2D" uid="uid://btu8tjrqbttmr" path="res://game_assets/player_character/player_walk/p1_walk05.png" id="8_b0vde"]
+[ext_resource type="Texture2D" uid="uid://cgqxebgleri42" path="res://game_assets/player_character/player_walk/p1_walk06.png" id="9_ke0a4"]
+[ext_resource type="Texture2D" uid="uid://cumxkgva60liv" path="res://game_assets/player_character/player_walk/p1_walk07.png" id="10_41yun"]
+[ext_resource type="Texture2D" uid="uid://ddfami5earob7" path="res://game_assets/player_character/player_walk/p1_walk08.png" id="11_svrv0"]
+[ext_resource type="Texture2D" uid="uid://bgneo4qa6i1ep" path="res://game_assets/player_character/player_walk/p1_walk09.png" id="12_4rspn"]
+[ext_resource type="Texture2D" uid="uid://dfwr60vaemm6m" path="res://game_assets/player_character/player_walk/p1_walk10.png" id="13_hsn1j"]
+[ext_resource type="Texture2D" uid="uid://3q1j2dpjb16s" path="res://game_assets/player_character/player_walk/p1_walk11.png" id="14_dx8gg"]
+[ext_resource type="PackedScene" uid="uid://do7nw1bwykx04" path="res://game_object/gravity.tscn" id="15_vcag3"]
 
-[node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=691762246]
+[sub_resource type="SpriteFrames" id="SpriteFrames_3eadt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tory2")
+}],
+"loop": true,
+"name": &"duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dnjla")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_x0jl3")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 3.5,
+"texture": ExtResource("1_tory2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_dnjla")
+}],
+"loop": true,
+"name": &"land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_eus45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vcag3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h076o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lcfw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b0vde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ke0a4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_41yun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_svrv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4rspn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_hsn1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_dx8gg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eus45"]
+radius = 24.0
+height = 96.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1828563036]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_h076o")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1966783102]
+sprite_frames = SubResource("SpriteFrames_3eadt")
+animation = &"idle"
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=691762246]
+shape = SubResource("CapsuleShape2D_eus45")
+
+[node name="Components" type="Node" parent="." unique_id=1097256904]
+
+[node name="Gravity" parent="Components" unique_id=1909726064 node_paths=PackedStringArray("character") instance=ExtResource("15_vcag3")]
+character = NodePath("../..")
